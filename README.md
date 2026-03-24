@@ -1,2 +1,2 @@
-# HasCrptor
+# HasCryptor
 MMEncryptor, but in haskell

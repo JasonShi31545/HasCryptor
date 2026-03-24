@@ -1,6 +1,6 @@
 -- | Generator for Prime Numbers
 
-module HasCrptor.Prime where
+module HasCryptor.Prime where
 
 import Data.Bits
 import Data.Word

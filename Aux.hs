@@ -1,6 +1,6 @@
 -- | Some data converters
 
-module HasCrptor.Aux where
+module Aux where
 
 import Data.Char
 
@@ -10,9 +10,9 @@ intToBin n = convert n
   where convert :: Int -> String
         convert k = if (k > 0) then convert (div k 2) ++ (show $ (mod k 2)) else ""
 
-reverseTail :: String -> String
-reverseTail "" = ""
-reverseTail s = reverse $ tail $ reverse s
+safeInit :: [a] -> [a]
+safeInit [] = []
+safeInit xs = init xs
 
 binToInt :: String -> Int
 binToInt "0" = 0
@@ -20,8 +20,8 @@ binToInt "1" = 1
 binToInt s = raise s 0
   where raise :: String -> Int -> Int
         raise "" _ = 0
-        raise str n = if (last str == '1') then 2^n + raise (reverseTail str) (n+1)
-                      else 0 + raise (reverseTail str) (n+1)
+        raise str n = if (last str == '1') then 2^n + raise (safeInit str) (n+1)
+                      else 0 + raise (safeInit str) (n+1)
 
 removeLeadingZeros :: String -> String
 removeLeadingZeros str = if (head str == '0') then removeLeadingZeros (tail str) else str
@@ -57,3 +57,4 @@ fromHex hexString = foldl (+) 0 $ numList hexString
                                  lowerlimit = ord '0'
                                  order = ord ch
                              in if (order >= lowerlimit && order <= upperlimit) then order-lowerlimit else (10 + (order - (ord 'A')))
+
